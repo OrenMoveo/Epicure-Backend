@@ -3,7 +3,8 @@ import dotenv from "dotenv";
 import cors from "cors";
 
 import { connectToDB } from "./db";
-import { insertData } from "./data/initData";
+import restaurantsRouter from "./routes/restaurantRoutes";
+import { appRoutes } from "./shared/constants";
 
 dotenv.config();
 
@@ -13,9 +14,11 @@ const port: number = parseInt(process.env.PORT as string, 10) || 3000;
 app.use(cors());
 app.use(express.json());
 
-app.get("/", (req, res) => {
+app.get(appRoutes.base, (req, res) => {
   res.send("Epicure API is running");
 });
+
+app.use(appRoutes.restaurants, restaurantsRouter);
 
 connectToDB()
   .then(() => {

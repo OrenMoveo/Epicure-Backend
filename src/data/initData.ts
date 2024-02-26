@@ -1,19 +1,19 @@
 import fs from "fs";
 import mongoose from "mongoose";
-import { Chef, ChefModel } from "../models/chef";
-import { Restaurant, RestaurantModel } from "../models/restaurant";
+import { IChef, Chef } from "../models/chef";
+import { IRestaurant, Restaurant } from "../models/restaurant";
 import { Dish, DishModel } from "../models/dish";
 
-export const insertChefs = async (chefsData: Chef[]) => {
-  return await ChefModel.insertMany(chefsData);
+export const insertChefs = async (chefsData: IChef[]) => {
+  return await Chef.insertMany(chefsData);
 };
 
-export const insertRestaurants = async (restaurantsData: Restaurant[]) => {
-  return await RestaurantModel.insertMany(restaurantsData);
+export const insertRestaurants = async (restaurantsData: IRestaurant[]) => {
+  return await Restaurant.insertMany(restaurantsData);
 };
 
 export const insertDishes = async (dishesData: Dish[]) => {
-  const insertedRestaurants = await RestaurantModel.find();
+  const insertedRestaurants = await Restaurant.find();
 
   return await DishModel.insertMany(
     dishesData.map((dishData: any) => {
@@ -30,8 +30,8 @@ export const insertDishes = async (dishesData: Dish[]) => {
 };
 
 export const updateChefRestaurantList = async (
-  chefs: Chef[],
-  restaurants: Restaurant[]
+  chefs: IChef[],
+  restaurants: IRestaurant[]
 ) => {
   await Promise.all(
     restaurants.map(async (restaurant) => {

@@ -1,5 +1,5 @@
 import mongoose, { Schema, Document } from "mongoose";
-import { Restaurant } from "./restaurant";
+import { IRestaurant } from "./restaurant";
 
 export interface Dish extends Document {
   name: string;
@@ -9,7 +9,7 @@ export interface Dish extends Document {
   signatureDish: boolean;
   foodIcon: string;
   mealType: string;
-  restaurant: Restaurant;
+  restaurant: IRestaurant;
 }
 
 const DishSchema = new Schema<Dish>({
