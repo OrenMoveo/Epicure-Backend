@@ -1,0 +1,149 @@
+{
+  "data": {
+    "restaurants": [
+      {
+        "name": "Claro",
+        "chef": "Ran Shmueli",
+        "pictureUrl": "/src/assets/images/restaurants/claro.png",
+        "openNow": false,
+        "location": "",
+        "rating": 1,
+        "mostPopular": false,
+        "newRestaurant": false,
+        "restaurantDishes": [],
+        "priceRange": [88, 250]
+      },
+      {
+        "name": "Kab Kem",
+        "chef": "Yariv Malili",
+        "pictureUrl": "/src/assets/images/restaurants/kabKem.png",
+        "openNow": false,
+        "location": "",
+        "rating": 2,
+        "mostPopular": false,
+        "newRestaurant": true,
+        "restaurantDishes": [],
+        "priceRange": [40, 300],
+        "keyId": "1"
+      },
+      {
+        "name": "Messa",
+        "chef": "Aviv Moshe",
+        "pictureUrl": "/src/assets/images/restaurants/Messa.png",
+        "openNow": false,
+        "location": "",
+        "rating": 1,
+        "mostPopular": true,
+        "newRestaurant": true,
+        "restaurantDishes": [],
+        "priceRange": [],
+        "keyId": "2"
+      },
+      {
+        "name": "Nitan Thai",
+        "chef": "Shahaf Shabtay",
+        "pictureUrl": "/src/assets/images/restaurants/nithanThai.png",
+        "openNow": false,
+        "location": "",
+        "rating": 1,
+        "mostPopular": true,
+        "newRestaurant": true,
+        "restaurantDishes": [],
+        "priceRange": [],
+        "keyId": "3"
+      }
+    ],
+    "dishes": [
+      {
+        "name": "Pad Ki Mao",
+        "pictureUrl": "/src/assets/images/dishes/padKiMao.png",
+        "description": [
+          "Green Papaya",
+          "Mango",
+          "Chukka Chili",
+          "Mint",
+          "Kaffir lime",
+          "Cashew",
+          "Akaya Cham sauce"
+        ],
+        "price": 88,
+        "signatureDish": true,
+        "foodIcon": "/src/assets/images/Icons/spicyIcon.svg",
+        "mealType": "breakfast",
+        "restaurant": "Claro",
+        "keyId": "9"
+      },
+      {
+        "name": "Garbanzo Frito",
+        "pictureUrl": "/src/assets/images/dishes/garbanzoFrito.png",
+        "description": [
+          "Polenta fingers",
+          "veal cheek",
+          "magic chili",
+          "cured lemon cream",
+          "yellow laksa"
+        ],
+        "price": 98,
+        "signatureDish": true,
+        "foodIcon": "/src/assets/images/Icons/spicyIcon.svg",
+        "mealType": "breakfast",
+        "restaurant": "Claro"
+      },
+      {
+        "name": "Smoked Pizza",
+        "pictureUrl": "/src/assets/images/dishes/smokedPizza.png",
+        "description": [
+          "Basil dough",
+          "cashew butter",
+          "demi-glace",
+          "bison & radish"
+        ],
+        "price": 98,
+        "signatureDish": true,
+        "foodIcon": "/src/assets/images/Icons/veganIcon.svg",
+        "mealType": "breakfast",
+        "restaurant": "Claro"
+      }
+    ],
+    "chefs": [
+      {
+        "name": "Yariv Malili",
+        "pictureUrl": "/src/assets/images/Chefs/yarivMalili.png",
+        "restaurants": [],
+        "newChef": false,
+        "views": 0,
+        "mostViewed": false,
+        "description": "bla bla "
+      },
+      {
+        "name": "Aviv Moshe",
+        "pictureUrl": "/src/assets/images/chefs/avivMoshe.png",
+        "restaurants": [],
+        "newChef": true,
+        "views": 0,
+        "mostViewed": true,
+        "description": ""
+      },
+      {
+        "name": "Ran Shmueli",
+        "pictureUrl": "/src/assets/images/Chefs/ranShumeli.png",
+        "restaurants": [],
+        "newChef": false,
+        "views": 0,
+        "mostViewed": false,
+        "description": "bla bla"
+      },
+      {
+        "name": "Yossi Shitrit",
+        "pictureUrl": "/src/assets/images/chefs/yossiShitrit.png",
+        "restaurants": [],
+        "newChef": false,
+        "views": 0,
+        "mostViewed": false,
+        "description": "Chef Yossi Shitrit has been living and breathing his culinary dreams for more than two decades, including running the kitchen in his first restaurant, the fondly-remembered Violet, located in Moshav Udim. Shitrit's creativity and culinary acumen born of long experience are expressed in the every detail of each and every dish."
+      }
+    ],
+    "dishChanges": ["Without peanuts", "Sticky Less spicy"],
+    "sideDishes": ["White bread", "Sticky rice"]
+  }
+}
