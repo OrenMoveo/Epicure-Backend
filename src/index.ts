@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 
 import { connectToDB } from "./db";
+import { insertData } from "./data/initData";
 
 dotenv.config();
 
