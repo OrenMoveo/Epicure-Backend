@@ -1,7 +1,7 @@
 import mongoose, { Schema, Document } from "mongoose";
 import { IRestaurant } from "./restaurant";
 
-export interface Dish extends Document {
+export interface IDish extends Document {
   name: string;
   pictureUrl: string;
   description: string[];
@@ -12,7 +12,7 @@ export interface Dish extends Document {
   restaurant: IRestaurant;
 }
 
-const DishSchema = new Schema<Dish>({
+const DishSchema = new Schema<IDish>({
   name: { type: String, required: true },
   pictureUrl: { type: String, required: true },
   description: { type: [String], required: true },
@@ -27,4 +27,5 @@ const DishSchema = new Schema<Dish>({
   },
 });
 
-export const DishModel = mongoose.model<Dish>("Dish", DishSchema);
+const Dish = mongoose.model<IDish>("Dish", DishSchema);
+export default Dish;

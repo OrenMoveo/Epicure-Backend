@@ -2,7 +2,7 @@ import fs from "fs";
 import mongoose from "mongoose";
 import { IChef, Chef } from "../models/chef";
 import { IRestaurant, Restaurant } from "../models/restaurant";
-import { Dish, DishModel } from "../models/dish";
+import { IDish, DishModel } from "../models/dish";
 
 export const insertChefs = async (chefsData: IChef[]) => {
   return await Chef.insertMany(chefsData);
@@ -12,7 +12,7 @@ export const insertRestaurants = async (restaurantsData: IRestaurant[]) => {
   return await Restaurant.insertMany(restaurantsData);
 };
 
-export const insertDishes = async (dishesData: Dish[]) => {
+export const insertDishes = async (dishesData: IDish[]) => {
   const insertedRestaurants = await Restaurant.find();
 
   return await DishModel.insertMany(

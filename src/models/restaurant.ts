@@ -1,6 +1,6 @@
 import mongoose, { Schema, Document } from "mongoose";
 import { IChef } from "./chef";
-import { Dish } from "./dish";
+import { IDish } from "./dish";
 
 export interface IRestaurant extends Document {
   name: string;
@@ -10,12 +10,12 @@ export interface IRestaurant extends Document {
   rating: number;
   mostPopular: boolean;
   newRestaurant: boolean;
-  restaurantDishes: Dish[];
+  restaurantDishes: IDish[];
   priceRange: number[];
   isPopular: boolean;
 }
 
-const RestaurantSchema = new Schema<IRestaurant>({
+const RestaurantSchema: Schema = new Schema({
   name: { type: String, required: true },
   chef: { type: Schema.Types.ObjectId, ref: "Chef", required: true },
   pictureUrl: { type: String, required: true },

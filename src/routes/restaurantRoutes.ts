@@ -1,9 +1,13 @@
-import express, { Request, Response } from "express";
-import Restaurant from "../models/restaurant";
+import express from "express";
 import { restaurantsRoutes } from "../shared/constants";
 import * as restaurantController from "../controllers/restaurantController";
 
 const restaurantRouter = express.Router();
+
+restaurantRouter.get(
+  restaurantsRoutes.popularRestaurants,
+  restaurantController.getPopularRestaurants
+);
 
 restaurantRouter.get(
   restaurantsRoutes.allRestaurants,
