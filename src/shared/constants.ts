@@ -10,6 +10,7 @@ export const dishRoutes = {
 };
 
 export const chefRoutes = {
+  allChefs: "/",
   chefOfTheWeek: "/chef-of-the-week-data",
 };
 
