@@ -6,51 +6,36 @@
         "chef": "Ran Shmueli",
         "pictureUrl": "/src/assets/images/restaurants/claro.png",
         "openNow": false,
-        "location": "",
         "rating": 1,
         "mostPopular": false,
         "newRestaurant": false,
         "restaurantDishes": [],
-        "priceRange": [88, 250]
+        "priceRange": [88, 250],
+        "isPopular": true
       },
       {
         "name": "Kab Kem",
         "chef": "Yariv Malili",
         "pictureUrl": "/src/assets/images/restaurants/kabKem.png",
         "openNow": false,
-        "location": "",
         "rating": 2,
         "mostPopular": false,
         "newRestaurant": true,
         "restaurantDishes": [],
         "priceRange": [40, 300],
-        "keyId": "1"
+        "isPopular": true
       },
       {
         "name": "Messa",
         "chef": "Aviv Moshe",
         "pictureUrl": "/src/assets/images/restaurants/Messa.png",
         "openNow": false,
-        "location": "",
         "rating": 1,
         "mostPopular": true,
         "newRestaurant": true,
         "restaurantDishes": [],
         "priceRange": [],
-        "keyId": "2"
-      },
-      {
-        "name": "Nitan Thai",
-        "chef": "Shahaf Shabtay",
-        "pictureUrl": "/src/assets/images/restaurants/nithanThai.png",
-        "openNow": false,
-        "location": "",
-        "rating": 1,
-        "mostPopular": true,
-        "newRestaurant": true,
-        "restaurantDishes": [],
-        "priceRange": [],
-        "keyId": "3"
+        "isPopular": true
       }
     ],
     "dishes": [
@@ -70,8 +55,7 @@
         "signatureDish": true,
         "foodIcon": "/src/assets/images/Icons/spicyIcon.svg",
         "mealType": "breakfast",
-        "restaurant": "Claro",
-        "keyId": "9"
+        "restaurant": "Claro"
       },
       {
         "name": "Garbanzo Frito",
@@ -122,7 +106,7 @@
         "newChef": true,
         "views": 0,
         "mostViewed": true,
-        "description": ""
+        "description": "blabla"
       },
       {
         "name": "Ran Shmueli",

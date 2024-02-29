@@ -10,7 +10,7 @@ let dbConnection: Connection;
 export const connectToDB = async () => {
   try {
     await mongoose.connect(uri, {});
-    mongoose.set("strictPopulate", false);
+    mongoose.set("strictPopulate", true);
     dbConnection = mongoose.connection;
     console.log("Connected to the database");
   } catch (err) {
