@@ -6,6 +6,7 @@ import {
   updateRestaurantById,
   removeRestaurantById,
 } from "../controllers/restaurantController";
+import dishService from "./dishService";
 
 class RestaurantService extends BaseService<IRestaurant> {
   constructor() {
@@ -63,7 +64,11 @@ class RestaurantService extends BaseService<IRestaurant> {
 
   async removeRestaurantById(restaurantId: string) {
     const removedRestaurant = await this.remove(restaurantId);
-    await Dish.deleteMany({ restaurant: restaurantId });
+    if (removedRestaurant) {
+      for (const dish of removedRestaurant.restaurantDishes) {
+        await dishService.removeDishById(dish._id);
+      }
+    }
     await Chef.findByIdAndUpdate(
       removedRestaurant?.chef,
       { $pull: { restaurants: removedRestaurant?._id } },
