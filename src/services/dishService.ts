@@ -1,6 +1,7 @@
 import Dish, { IDish } from "../models/dish";
 import Restaurant from "../models/restaurant";
 import { BaseService } from "./baseService";
+import { updateDishById } from "../controllers/dishController";
 
 class DishService extends BaseService<IDish> {
   constructor() {
@@ -24,6 +25,10 @@ class DishService extends BaseService<IDish> {
       { new: true, useFindAndModify: false }
     );
     return savedDish;
+  }
+
+  async updateDishById(dishId: string, updateData: Partial<IDish>) {
+    return await this.update(dishId, updateData);
   }
 }
 

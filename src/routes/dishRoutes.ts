@@ -11,7 +11,7 @@ dishRouter.get(
 
 dishRouter.post(appRoutes.dishes.addDish, dishController.addDish);
 
-// dishRouter.put(appRoutes.dishes.updateDishById, dishController.updateDishById);
+dishRouter.put(appRoutes.dishes.updateDishById, dishController.updateDishById);
 
 // dishRouter.delete(
 //   appRoutes.dishes.removeDishById,
