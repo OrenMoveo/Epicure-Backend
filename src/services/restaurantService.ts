@@ -2,7 +2,10 @@ import Restaurant, { IRestaurant } from "../models/restaurant";
 import Chef from "../models/chef";
 import Dish from "../models/dish";
 import { BaseService } from "./baseService";
-import { updateRestaurant } from "../controllers/restaurantController";
+import {
+  updateRestaurant,
+  removeRestaurant,
+} from "../controllers/restaurantController";
 
 class RestaurantService extends BaseService<IRestaurant> {
   constructor() {
@@ -41,9 +44,7 @@ class RestaurantService extends BaseService<IRestaurant> {
     return await this.getById(id, populatedOptions);
   }
 
-  async addRestaurant(
-    newRestaurantData: Partial<IRestaurant>
-  ) {
+  async addRestaurant(newRestaurantData: Partial<IRestaurant>) {
     const savedRestaurant = await this.create(newRestaurantData);
     await Chef.findByIdAndUpdate(
       savedRestaurant.chef,
@@ -54,9 +55,20 @@ class RestaurantService extends BaseService<IRestaurant> {
   }
 
   async updateRestaurant(
+    restaurantId: string,
     updateData: Partial<IRestaurant>
-  ){
-    return await this.update(updateData._id,updateData);
+  ) {
+    return await this.update(restaurantId, updateData);
+  }
+
+  async removeRestaurant(restaurantId: string) {
+    const removedRestaurant = await this.remove(restaurantId);
+    await Chef.findByIdAndUpdate(
+      removedRestaurant?.chef,
+      { $pull: { restaurants: removedRestaurant?._id } },
+      { new: true, useFindAndModify: false }
+    );
+    return removedRestaurant;
   }
 }
 

@@ -47,11 +47,26 @@ export const addRestaurant = async (req: Request, res: Response) => {
 
 export const updateRestaurant = async (req: Request, res: Response) => {
   try {
+    const restaurantId = req.params.id;
     const updateData = req.body;
     const updatedRestaurant = await restaurantService.updateRestaurant(
+      restaurantId,
       updateData
     );
     res.json(updatedRestaurant);
+  } catch (error: any) {
+    console.error(error.message);
+    res.status(500).send("Server Error");
+  }
+};
+
+export const removeRestaurant = async (req: Request, res: Response) => {
+  try {
+    const restaurantId = req.params.id;
+    const removedRestaurant = await restaurantService.removeRestaurant(
+      restaurantId
+    );
+    res.json(removedRestaurant);
   } catch (error: any) {
     console.error(error.message);
     res.status(500).send("Server Error");
