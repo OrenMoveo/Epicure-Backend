@@ -3,10 +3,7 @@ import { Model, Document, PopulateOptions, FilterQuery } from "mongoose";
 export class BaseService<T extends Document> {
   constructor(protected model: Model<T>) {}
 
-  async getAll(
-    filter?: FilterQuery<T>,
-    populateOptions?: PopulateOptions[]
-  ): Promise<T[]> {
+  async getAll(populateOptions?: PopulateOptions[]): Promise<T[]> {
     const query = this.model.find();
     if (populateOptions) {
       query.populate(populateOptions);

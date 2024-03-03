@@ -20,3 +20,14 @@ export const getChefOfTheWeek = async (req: Request, res: Response) => {
     res.status(500).send("Server Error");
   }
 };
+
+export const addChef = async (req: Request, res: Response) => {
+  try {
+    const newChefData = req.body;
+    const newChef = await chefService.addChef(newChefData);
+    res.json(newChef);
+  } catch (error: any) {
+    console.error(error.message);
+    res.status(500).send("Server Error");
+  }
+};

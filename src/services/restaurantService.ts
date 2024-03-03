@@ -39,6 +39,11 @@ class RestaurantService extends BaseService<IRestaurant> {
 
     return await this.getById(id, populatedOptions);
   }
+
+  async addNewRestaurant(newRestaurantData: Partial<IRestaurant>): Promise<IRestaurant> {
+    return await this.create(newRestaurantData);
+  }
+
 }
 
 export default new RestaurantService();

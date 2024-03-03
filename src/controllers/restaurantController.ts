@@ -31,3 +31,14 @@ export const getRestaurantById = async (req: Request, res: Response) => {
     res.status(500).send("Server Error");
   }
 };
+
+export const addNewRestaurant = async (req: Request, res: Response) => {
+  try {
+    const newRestaurantData = req.body; 
+    const newRestaurant = await restaurantService.addNewRestaurant(newRestaurantData);
+    res.json(newRestaurant);
+  } catch (error: any) {
+    console.error(error.message);
+    res.status(500).send('Server Error');
+  }
+};

@@ -1,22 +1,27 @@
 import express from "express";
-import { restaurantsRoutes } from "../shared/constants";
+import { appRoutes } from "../shared/constants";
 import * as restaurantController from "../controllers/restaurantController";
 
 const restaurantRouter = express.Router();
 
 restaurantRouter.get(
-  restaurantsRoutes.popularRestaurants,
+  appRoutes.restaurants.popularRestaurants,
   restaurantController.getPopularRestaurants
 );
 
 restaurantRouter.get(
-  restaurantsRoutes.allRestaurants,
+  appRoutes.restaurants.allRestaurants,
   restaurantController.getAllRestaurants
 );
 
 restaurantRouter.get(
-  restaurantsRoutes.singleRestaurant,
+  appRoutes.restaurants.restaurantById,
   restaurantController.getRestaurantById
+);
+
+restaurantRouter.post(
+  appRoutes.restaurants.addRestaurant,
+  restaurantController.addNewRestaurant
 );
 
 export default restaurantRouter;

@@ -20,6 +20,10 @@ class ChefService extends BaseService<IChef> {
       },
     ]);
   }
+
+  async addChef(data: Partial<IChef>): Promise<IChef> {
+    return await this.create(data);
+  }
 }
 
 export default new ChefService();
