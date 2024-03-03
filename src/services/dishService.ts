@@ -1,7 +1,7 @@
 import Dish, { IDish } from "../models/dish";
 import Restaurant from "../models/restaurant";
 import { BaseService } from "./baseService";
-import { updateDishById } from "../controllers/dishController";
+import { updateDishById, removeDishById } from "../controllers/dishController";
 
 class DishService extends BaseService<IDish> {
   constructor() {
@@ -29,6 +29,16 @@ class DishService extends BaseService<IDish> {
 
   async updateDishById(dishId: string, updateData: Partial<IDish>) {
     return await this.update(dishId, updateData);
+  }
+
+  async removeDishById(dishId: string) {
+    const removedDish = await this.remove(dishId);
+    await Restaurant.findByIdAndUpdate(
+      removedDish?.restaurant,
+      { $pull: { restaurantDishes: removedDish?._id } },
+      { new: true, useFindAndModify: false }
+    );
+    return removedDish;
   }
 }
 

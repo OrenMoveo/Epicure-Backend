@@ -36,3 +36,15 @@ export const updateDishById = async (req: Request, res: Response) => {
     res.status(500).send("Server Error");
   }
 };
+
+
+export const removeDishById = async (req: Request, res: Response) => {
+  try {
+    const DishId = req.params.id;
+    const removedDish = await dishService.removeDishById(DishId);
+    res.json(removedDish);
+  } catch (error: any) {
+    console.error(error.message);
+    res.status(500).send("Server Error");
+  }
+};
