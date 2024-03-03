@@ -45,11 +45,11 @@ export const addRestaurant = async (req: Request, res: Response) => {
   }
 };
 
-export const updateRestaurant = async (req: Request, res: Response) => {
+export const updateRestaurantById = async (req: Request, res: Response) => {
   try {
     const restaurantId = req.params.id;
     const updateData = req.body;
-    const updatedRestaurant = await restaurantService.updateRestaurant(
+    const updatedRestaurant = await restaurantService.updateRestaurantById(
       restaurantId,
       updateData
     );
@@ -60,10 +60,10 @@ export const updateRestaurant = async (req: Request, res: Response) => {
   }
 };
 
-export const removeRestaurant = async (req: Request, res: Response) => {
+export const removeRestaurantById = async (req: Request, res: Response) => {
   try {
     const restaurantId = req.params.id;
-    const removedRestaurant = await restaurantService.removeRestaurant(
+    const removedRestaurant = await restaurantService.removeRestaurantById(
       restaurantId
     );
     res.json(removedRestaurant);

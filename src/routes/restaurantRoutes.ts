@@ -20,13 +20,13 @@ restaurantRouter.post(
 );
 
 restaurantRouter.put(
-  appRoutes.restaurants.updateRestaurant,
-  restaurantController.updateRestaurant
+  appRoutes.restaurants.updateRestaurantById,
+  restaurantController.updateRestaurantById
 );
 
 restaurantRouter.delete(
-  appRoutes.restaurants.removeRestaurant,
-  restaurantController.removeRestaurant
+  appRoutes.restaurants.removeRestaurantById,
+  restaurantController.removeRestaurantById
 );
 
 restaurantRouter.get(

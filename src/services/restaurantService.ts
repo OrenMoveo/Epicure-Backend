@@ -3,8 +3,8 @@ import Chef from "../models/chef";
 import Dish from "../models/dish";
 import { BaseService } from "./baseService";
 import {
-  updateRestaurant,
-  removeRestaurant,
+  updateRestaurantById,
+  removeRestaurantById,
 } from "../controllers/restaurantController";
 
 class RestaurantService extends BaseService<IRestaurant> {
@@ -54,15 +54,16 @@ class RestaurantService extends BaseService<IRestaurant> {
     return savedRestaurant;
   }
 
-  async updateRestaurant(
+  async updateRestaurantById(
     restaurantId: string,
     updateData: Partial<IRestaurant>
   ) {
     return await this.update(restaurantId, updateData);
   }
 
-  async removeRestaurant(restaurantId: string) {
+  async removeRestaurantById(restaurantId: string) {
     const removedRestaurant = await this.remove(restaurantId);
+    await Dish.deleteMany({ restaurant: restaurantId });
     await Chef.findByIdAndUpdate(
       removedRestaurant?.chef,
       { $pull: { restaurants: removedRestaurant?._id } },
