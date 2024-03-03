@@ -1,14 +1,13 @@
 import { Request, Response } from "express";
 import restaurantService from "../services/restaurantService";
 
-
 export const getAllRestaurants = async (req: Request, res: Response) => {
   try {
     const restaurants = await restaurantService.getAllRestaurants();
     res.json(restaurants);
   } catch (error: any) {
     console.error(error.message);
-    res.status(500).send(error.message);
+    res.status(500).send("Server Error");
   }
 };
 
@@ -18,7 +17,7 @@ export const getPopularRestaurants = async (req: Request, res: Response) => {
     res.json(popularRestaurants);
   } catch (error: any) {
     console.error(error.message);
-    res.status(500).send(error.message);
+    res.status(500).send("Server Error");
   }
 };
 
@@ -29,6 +28,6 @@ export const getRestaurantById = async (req: Request, res: Response) => {
     res.json(restaurant);
   } catch (error: any) {
     console.error(error.message);
-    res.status(500).send(error.message);
+    res.status(500).send("Server Error");
   }
 };

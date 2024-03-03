@@ -9,19 +9,23 @@ class RestaurantService extends BaseService<IRestaurant> {
   }
 
   async getAllRestaurants() {
-    return await this.model.find().populate("chef", "name", Chef);
+    const populateOptions = [{ path: "chef", select: "name", model: Chef }];
+    return await this.getAll(populateOptions);
   }
 
   async getPopularRestaurants() {
-    return await this.model
-      .find({ isPopular: true })
-      .populate("chef", "name", Chef);
+    const populateOptions = [{ path: "chef", select: "name", model: Chef }];
+    const allRestaurants = await this.getAll(populateOptions);
+    const popularRestaurants = allRestaurants.filter(
+      (restaurant) => restaurant.isPopular
+    );
+
+    return popularRestaurants;
   }
 
   async getRestaurantById(id: string) {
-    return await this.model
-      .findById(id)
-      .populate({
+    const populatedOptions = [
+      {
         path: "restaurantDishes",
         model: Dish,
         populate: {
@@ -29,8 +33,11 @@ class RestaurantService extends BaseService<IRestaurant> {
           model: Restaurant,
           select: "name",
         },
-      })
-      .populate({ path: "chef", model: Chef });
+      },
+      { path: "chef", model: Chef },
+    ];
+
+    return await this.getById(id, populatedOptions);
   }
 }
 

@@ -1,14 +1,39 @@
-import { Model, Document } from "mongoose";
+import { Model, Document, PopulateOptions, FilterQuery } from "mongoose";
 
 export class BaseService<T extends Document> {
   constructor(protected model: Model<T>) {}
 
-  async getAll(): Promise<T[]> {
-    return this.model.find().exec();
+  async getAll(
+    filter?: FilterQuery<T>,
+    populateOptions?: PopulateOptions[]
+  ): Promise<T[]> {
+    const query = this.model.find();
+    if (populateOptions) {
+      query.populate(populateOptions);
+    }
+    return query;
   }
 
-  async getById(id: string): Promise<T | null> {
-    return this.model.findById(id).exec();
+  async getById(
+    id: string,
+    populateOptions?: PopulateOptions[]
+  ): Promise<T | null> {
+    const query = this.model.findById(id);
+    if (populateOptions) {
+      query.populate(populateOptions);
+    }
+    return query;
+  }
+
+  async getOne(
+    filterBy?: {},
+    populateOptions?: PopulateOptions[]
+  ): Promise<T | null> {
+    const query = this.model.findOne(filterBy);
+    if (populateOptions) {
+      query.populate(populateOptions);
+    }
+    return query;
   }
 
   async create(data: Partial<T>): Promise<T> {
@@ -16,10 +41,10 @@ export class BaseService<T extends Document> {
   }
 
   async update(id: string, data: Partial<T>): Promise<T | null> {
-    return this.model.findByIdAndUpdate(id, data, { new: true }).exec();
+    return this.model.findByIdAndUpdate(id, data, { new: true });
   }
 
   async remove(id: string): Promise<T | null> {
-    return this.model.findByIdAndDelete(id).exec();
+    return this.model.findByIdAndDelete(id);
   }
 }
