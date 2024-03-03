@@ -21,9 +21,9 @@ app.get(appRoutes.base, (req, res) => {
   res.send("Epicure API is running");
 });
 
-app.use(appRoutes.restaurants, restaurantsRouter);
-app.use(appRoutes.dishes, dishRouter);
-app.use(appRoutes.chefs, chefRouter);
+app.use(appRoutes.restaurants.base, restaurantsRouter);
+app.use(appRoutes.dishes.base, dishRouter);
+app.use(appRoutes.chefs.base, chefRouter);
 
 connectToDB()
   .then(() => {

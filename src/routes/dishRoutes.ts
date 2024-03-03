@@ -1,17 +1,21 @@
 import express from "express";
 import * as dishController from "../controllers/dishController";
-import { dishRoutes} from "../shared/constants";
+import { appRoutes } from "../shared/constants";
 
 const dishRouter = express.Router();
 
 dishRouter.get(
-  dishRoutes.signatureDishes,
+  appRoutes.dishes.signatureDishes,
   dishController.getSignatureDishes
 );
 
-// dishRouter.get(
-//   homePageRoutes.chefOfTheWeek,
-//   homePageController.getChefOfTheWeek
-// );
+dishRouter.post(appRoutes.dishes.addDish, dishController.addDish);
+
+dishRouter.put(appRoutes.dishes.updateDishById, dishController.updateDishById);
+
+dishRouter.delete(
+  appRoutes.dishes.removeDishById,
+  dishController.removeDishById
+);
 
 export default dishRouter;

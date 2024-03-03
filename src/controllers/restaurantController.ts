@@ -1,24 +1,19 @@
 import { Request, Response } from "express";
-
-import Restaurant from "../models/restaurant";
-import Chef from "../models/chef";
-import Dish from "../models/dish";
+import restaurantService from "../services/restaurantService";
 
 export const getAllRestaurants = async (req: Request, res: Response) => {
   try {
-    const restaurants = await Restaurant.find().populate("chef", "name", Chef);
+    const restaurants = await restaurantService.getAllRestaurants();
     res.json(restaurants);
   } catch (error: any) {
     console.error(error.message);
-    res.status(500).send(error.message);
+    res.status(500).send("Server Error");
   }
 };
 
 export const getPopularRestaurants = async (req: Request, res: Response) => {
   try {
-    const popularRestaurants = await Restaurant.find({
-      isPopular: true,
-    }).populate("chef", "name", Chef);
+    const popularRestaurants = await restaurantService.getPopularRestaurants();
     res.json(popularRestaurants);
   } catch (error: any) {
     console.error(error.message);
@@ -29,25 +24,49 @@ export const getPopularRestaurants = async (req: Request, res: Response) => {
 export const getRestaurantById = async (req: Request, res: Response) => {
   try {
     const restaurantId = req.params.id;
-    const restaurant = await Restaurant.findById(restaurantId)
-      .populate({
-        path: "restaurantDishes",
-        model: Dish,
-        populate: {
-          path: "restaurant",
-          model: Restaurant,
-          select: "name",
-        },
-      })
-      .populate({
-        path: "chef",
-        model: Chef,
-      });
-
-    if (!restaurant) {
-      return res.status(404).json({ msg: "Restaurant not found" });
-    }
+    const restaurant = await restaurantService.getRestaurantById(restaurantId);
     res.json(restaurant);
+  } catch (error: any) {
+    console.error(error.message);
+    res.status(500).send("Server Error");
+  }
+};
+
+export const addRestaurant = async (req: Request, res: Response) => {
+  try {
+    const newRestaurantData = req.body;
+    const newRestaurant = await restaurantService.addRestaurant(
+      newRestaurantData
+    );
+    res.json(newRestaurant);
+  } catch (error: any) {
+    console.error(error.message);
+    res.status(500).send("Server Error");
+  }
+};
+
+export const updateRestaurantById = async (req: Request, res: Response) => {
+  try {
+    const restaurantId = req.params.id;
+    const updateData = req.body;
+    const updatedRestaurant = await restaurantService.updateRestaurantById(
+      restaurantId,
+      updateData
+    );
+    res.json(updatedRestaurant);
+  } catch (error: any) {
+    console.error(error.message);
+    res.status(500).send("Server Error");
+  }
+};
+
+export const removeRestaurantById = async (req: Request, res: Response) => {
+  try {
+    const restaurantId = req.params.id;
+    const removedRestaurant = await restaurantService.removeRestaurantById(
+      restaurantId
+    );
+    res.json(removedRestaurant);
   } catch (error: any) {
     console.error(error.message);
     res.status(500).send("Server Error");

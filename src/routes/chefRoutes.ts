@@ -1,10 +1,16 @@
 import express from "express";
 import * as chefController from "../controllers/chefController";
-import { chefRoutes } from "../shared/constants";
+import { appRoutes } from "../shared/constants";
 
 const chefRouter = express.Router();
 
-chefRouter.get(chefRoutes.chefOfTheWeek, chefController.getChefOfTheWeek);
-chefRouter.get(chefRoutes.allChefs, chefController.getAllChefs);
+chefRouter.get(appRoutes.chefs.chefOfTheWeek, chefController.getChefOfTheWeek);
+chefRouter.get(appRoutes.chefs.allChefs, chefController.getAllChefs);
+chefRouter.post(appRoutes.chefs.addChef, chefController.addChef);
+chefRouter.put(appRoutes.chefs.updateChefById, chefController.updateChefById);
+chefRouter.delete(
+  appRoutes.chefs.removeChefById,
+  chefController.removeChefById
+);
 
 export default chefRouter;
