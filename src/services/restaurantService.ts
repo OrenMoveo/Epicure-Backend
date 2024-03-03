@@ -40,10 +40,17 @@ class RestaurantService extends BaseService<IRestaurant> {
     return await this.getById(id, populatedOptions);
   }
 
-  async addNewRestaurant(newRestaurantData: Partial<IRestaurant>): Promise<IRestaurant> {
-    return await this.create(newRestaurantData);
+  async addRestaurant(
+    newRestaurantData: Partial<IRestaurant>
+  ): Promise<IRestaurant> {
+    const savedRestaurant = await this.create(newRestaurantData);
+    await Chef.findByIdAndUpdate(
+      savedRestaurant.chef,
+      { $push: { restaurants: savedRestaurant._id } },
+      { new: true, useFindAndModify: false }
+    );
+    return savedRestaurant;
   }
-
 }
 
 export default new RestaurantService();

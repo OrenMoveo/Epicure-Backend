@@ -21,7 +21,7 @@ restaurantRouter.get(
 
 restaurantRouter.post(
   appRoutes.restaurants.addRestaurant,
-  restaurantController.addNewRestaurant
+  restaurantController.addRestaurant
 );
 
 export default restaurantRouter;

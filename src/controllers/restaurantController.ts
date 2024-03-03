@@ -32,10 +32,10 @@ export const getRestaurantById = async (req: Request, res: Response) => {
   }
 };
 
-export const addNewRestaurant = async (req: Request, res: Response) => {
+export const addRestaurant = async (req: Request, res: Response) => {
   try {
     const newRestaurantData = req.body; 
-    const newRestaurant = await restaurantService.addNewRestaurant(newRestaurantData);
+    const newRestaurant = await restaurantService.addRestaurant(newRestaurantData);
     res.json(newRestaurant);
   } catch (error: any) {
     console.error(error.message);
