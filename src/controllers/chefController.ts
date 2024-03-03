@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
 import chefService from "../services/chefService";
-import restaurantService from "../services/restaurantService";
 
 export const getAllChefs = async (req: Request, res: Response) => {
   try {

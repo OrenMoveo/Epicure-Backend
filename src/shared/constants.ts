@@ -20,5 +20,8 @@ export const appRoutes = {
   dishes: {
     base: "/dishes",
     signatureDishes: "/signature-dishes-data",
+    addDish: "/add",
+    updateDishById: "/update/:id",
+    removeDishById: "/remove/:id",
   },
 };
