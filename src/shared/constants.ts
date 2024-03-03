@@ -6,6 +6,7 @@ export const appRoutes = {
     restaurantById: "/:id",
     popularRestaurants: "/popular-restaurants-data",
     addRestaurant: "/add",
+    updateRestaurant: "/update",
   },
   chefs: {
     base: "/chefs",

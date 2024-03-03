@@ -23,5 +23,11 @@ restaurantRouter.post(
   appRoutes.restaurants.addRestaurant,
   restaurantController.addRestaurant
 );
+restaurantRouter.put(
+  appRoutes.restaurants.updateRestaurant,
+  restaurantController.updateRestaurant
+);
+
+
 
 export default restaurantRouter;
