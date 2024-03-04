@@ -1,6 +1,11 @@
 import express from "express";
 import { appRoutes } from "../shared/constants";
 import * as restaurantController from "../controllers/restaurantController";
+import { validate } from "../validators/validate";
+import {
+  createRestaurantValidationSchema,
+  updateRestaurantValidationSchema,
+} from "../validators/restaurantValidationScheme";
 
 const restaurantRouter = express.Router();
 
@@ -16,11 +21,13 @@ restaurantRouter.get(
 
 restaurantRouter.post(
   appRoutes.restaurants.addRestaurant,
+  validate(createRestaurantValidationSchema),
   restaurantController.addRestaurant
 );
 
 restaurantRouter.put(
   appRoutes.restaurants.updateRestaurantById,
+  validate(updateRestaurantValidationSchema),
   restaurantController.updateRestaurantById
 );
 
