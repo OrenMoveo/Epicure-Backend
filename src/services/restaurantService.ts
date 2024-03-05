@@ -2,10 +2,6 @@ import Restaurant, { IRestaurant } from "../models/restaurant";
 import Chef from "../models/chef";
 import Dish from "../models/dish";
 import { BaseService } from "./baseService";
-import {
-  updateRestaurantById,
-  removeRestaurantById,
-} from "../controllers/restaurantController";
 import dishService from "./dishService";
 
 class RestaurantService extends BaseService<IRestaurant> {
@@ -13,12 +9,12 @@ class RestaurantService extends BaseService<IRestaurant> {
     super(Restaurant);
   }
 
-  async getAllRestaurants() {
+  async getAllRestaurants(): Promise<IRestaurant[]> {
     const populateOptions = [{ path: "chef", select: "name", model: Chef }];
     return await this.getAll(populateOptions);
   }
 
-  async getPopularRestaurants() {
+  async getPopularRestaurants(): Promise<IRestaurant[]> {
     const populateOptions = [{ path: "chef", select: "name", model: Chef }];
     const allRestaurants = await this.getAll(populateOptions);
     const popularRestaurants = allRestaurants.filter(
@@ -28,7 +24,7 @@ class RestaurantService extends BaseService<IRestaurant> {
     return popularRestaurants;
   }
 
-  async getRestaurantById(id: string) {
+  async getRestaurantById(id: string): Promise<IRestaurant | null> {
     const populatedOptions = [
       {
         path: "restaurantDishes",
@@ -45,7 +41,9 @@ class RestaurantService extends BaseService<IRestaurant> {
     return await this.getById(id, populatedOptions);
   }
 
-  async addRestaurant(newRestaurantData: Partial<IRestaurant>) {
+  async addRestaurant(
+    newRestaurantData: Partial<IRestaurant>
+  ): Promise<IRestaurant> {
     const savedRestaurant = await this.create(newRestaurantData);
     await Chef.findByIdAndUpdate(
       savedRestaurant.chef,
@@ -58,11 +56,13 @@ class RestaurantService extends BaseService<IRestaurant> {
   async updateRestaurantById(
     restaurantId: string,
     updateData: Partial<IRestaurant>
-  ) {
+  ): Promise<IRestaurant | null> {
     return await this.update(restaurantId, updateData);
   }
 
-  async removeRestaurantById(restaurantId: string) {
+  async removeRestaurantById(
+    restaurantId: string
+  ): Promise<IRestaurant | null> {
     const removedRestaurant = await this.remove(restaurantId);
     if (removedRestaurant) {
       for (const dish of removedRestaurant.restaurantDishes) {

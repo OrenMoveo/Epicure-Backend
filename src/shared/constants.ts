@@ -1,3 +1,5 @@
+import Joi from "joi";
+
 export const appRoutes = {
   base: "/",
   restaurants: {
@@ -25,3 +27,7 @@ export const appRoutes = {
     removeDishById: "/remove/:id",
   },
 };
+
+export const objectIdSchema = Joi.string()
+  .pattern(new RegExp("^[0-9a-fA-F]{24}$"))
+  .message("Invalid ObjectId");

@@ -8,7 +8,7 @@ class DishService extends BaseService<IDish> {
     super(Dish);
   }
 
-  async getSignatureDishes() {
+  async getSignatureDishes(): Promise<IDish[]> {
     const populateOptions = [
       { path: "restaurant", model: Restaurant, select: "name" },
     ];
@@ -17,7 +17,7 @@ class DishService extends BaseService<IDish> {
     return signatureDishes;
   }
 
-  async addDish(data: Partial<IDish>) {
+  async addDish(data: Partial<IDish>): Promise<IDish> {
     const savedDish = await this.create(data);
     await Restaurant.findByIdAndUpdate(
       savedDish.restaurant,
@@ -27,11 +27,14 @@ class DishService extends BaseService<IDish> {
     return savedDish;
   }
 
-  async updateDishById(dishId: string, updateData: Partial<IDish>) {
+  async updateDishById(
+    dishId: string,
+    updateData: Partial<IDish>
+  ): Promise<IDish | null> {
     return await this.update(dishId, updateData);
   }
 
-  async removeDishById(dishId: string) {
+  async removeDishById(dishId: string): Promise<IDish | null> {
     const removedDish = await this.remove(dishId);
     await Restaurant.findByIdAndUpdate(
       removedDish?.restaurant,

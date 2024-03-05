@@ -10,11 +10,11 @@ class ChefService extends BaseService<IChef> {
     super(Chef);
   }
 
-  async getAllChefs() {
+  async getAllChefs(): Promise<IChef[]> {
     return await this.getAll();
   }
 
-  async getChefOfTheWeek() {
+  async getChefOfTheWeek(): Promise<IChef | null> {
     return await this.getOne({ chefOfTheWeek: true }, [
       {
         path: "restaurants",
@@ -28,11 +28,14 @@ class ChefService extends BaseService<IChef> {
     return await this.create(data);
   }
 
-  async updateChefById(chefId: string, updateData: Partial<IChef>) {
+  async updateChefById(
+    chefId: string,
+    updateData: Partial<IChef>
+  ): Promise<IChef | null> {
     return await this.update(chefId, updateData);
   }
 
-  async removeChefById(chefId: string) {
+  async removeChefById(chefId: string): Promise<IChef | null> {
     const removedChef = await this.remove(chefId);
     if (removedChef) {
       for (const restaurant of removedChef.restaurants) {
