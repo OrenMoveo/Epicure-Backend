@@ -1,6 +1,11 @@
 import { Request, Response } from "express";
 import userService from "../services/userService";
-import User, { IUser } from "../models/user";
+import bcrypt from "bcrypt";
+import { IUser } from "../models/user";
+import jwt from "jsonwebtoken";
+import { env } from "process";
+
+const HASH_COST_FACTOR = 10;
 
 const userController = {
   userSignUp: async (req: Request, res: Response) => {
@@ -14,7 +19,13 @@ const userController = {
         return res.status(400).json({ message: "Email already in use" });
       }
 
-      const newUser = await userService.create(user);
+      const hashedPassword = await bcrypt.hash(user.password, HASH_COST_FACTOR);
+
+      const newUser = await userService.create({
+        email: user.email,
+        password: hashedPassword,
+      });
+
       return res
         .status(201)
         .json({ message: "Registration successful", user: newUser });
@@ -26,11 +37,14 @@ const userController = {
 
   userLogin: async (req: Request, res: Response) => {
     try {
-      const userDetails = req.body;
+      const userDetails: IUser = req.body;
 
       const user = await userService.getOne({ email: userDetails.email });
 
-      if (!user || user.password !== userDetails.password) {
+      if (
+        !user ||
+        !(await bcrypt.compare(userDetails.password, user.password))
+      ) {
         return res.status(401).json({
           errorType: "Authentication",
           message: "Invalid email or password",
@@ -42,9 +56,18 @@ const userController = {
         email: user.email,
       };
 
+      if (!process.env.JWT_SECRET) {
+        console.error("invalid JWT key");
+        return;
+      }
+
+      const token = jwt.sign(userData, process.env.JWT_SECRET, {
+        expiresIn: "1h",
+      });
+
       return res
         .status(200)
-        .json({ message: "Login successful", user: userData });
+        .json({ message: "Login successful", user: userData, token });
     } catch (error) {
       console.error("User login error:", error);
       return res
