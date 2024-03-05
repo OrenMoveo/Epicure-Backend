@@ -26,6 +26,10 @@ export const appRoutes = {
     updateDishById: "/update/:id",
     removeDishById: "/remove/:id",
   },
+  user: {
+    base: "/user",
+    signUp: "/sign-up",
+  },
 };
 
 export const objectIdSchema = Joi.string()

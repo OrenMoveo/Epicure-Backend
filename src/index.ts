@@ -8,6 +8,7 @@ import { appRoutes } from "./shared/constants";
 import homePageRouter from "./routes/dishRoutes";
 import dishRouter from "./routes/dishRoutes";
 import chefRouter from "./routes/chefRoutes";
+import userRouter from "./routes/userRoutes";
 
 dotenv.config();
 
@@ -24,6 +25,7 @@ app.get(appRoutes.base, (req, res) => {
 app.use(appRoutes.restaurants.base, restaurantsRouter);
 app.use(appRoutes.dishes.base, dishRouter);
 app.use(appRoutes.chefs.base, chefRouter);
+app.use(appRoutes.user.base, userRouter);
 
 connectToDB()
   .then(() => {
