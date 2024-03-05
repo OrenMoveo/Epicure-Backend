@@ -1,21 +1,43 @@
 import express from "express";
-import { restaurantsRoutes } from "../shared/constants";
+import { appRoutes } from "../shared/constants";
 import * as restaurantController from "../controllers/restaurantController";
+import { validate } from "../validators/validate";
+import {
+  createRestaurantValidationSchema,
+  updateRestaurantValidationSchema,
+} from "../validators/restaurantValidationScheme";
 
 const restaurantRouter = express.Router();
 
 restaurantRouter.get(
-  restaurantsRoutes.popularRestaurants,
+  appRoutes.restaurants.popularRestaurants,
   restaurantController.getPopularRestaurants
 );
 
 restaurantRouter.get(
-  restaurantsRoutes.allRestaurants,
+  appRoutes.restaurants.allRestaurants,
   restaurantController.getAllRestaurants
 );
 
+restaurantRouter.post(
+  appRoutes.restaurants.addRestaurant,
+  validate(createRestaurantValidationSchema),
+  restaurantController.addRestaurant
+);
+
+restaurantRouter.put(
+  appRoutes.restaurants.updateRestaurantById,
+  validate(updateRestaurantValidationSchema),
+  restaurantController.updateRestaurantById
+);
+
+restaurantRouter.delete(
+  appRoutes.restaurants.removeRestaurantById,
+  restaurantController.removeRestaurantById
+);
+
 restaurantRouter.get(
-  restaurantsRoutes.singleRestaurant,
+  appRoutes.restaurants.restaurantById,
   restaurantController.getRestaurantById
 );
 

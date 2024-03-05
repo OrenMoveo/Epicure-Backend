@@ -8,6 +8,8 @@ import { appRoutes } from "./shared/constants";
 import homePageRouter from "./routes/dishRoutes";
 import dishRouter from "./routes/dishRoutes";
 import chefRouter from "./routes/chefRoutes";
+import userRouter from "./routes/userRoutes";
+import protectedRouter from "./routes/protectedRoute";
 
 dotenv.config();
 
@@ -17,13 +19,11 @@ const port: number = parseInt(process.env.PORT as string, 10) || 3000;
 app.use(cors());
 app.use(express.json());
 
-app.get(appRoutes.base, (req, res) => {
-  res.send("Epicure API is running");
-});
-
-app.use(appRoutes.restaurants, restaurantsRouter);
-app.use(appRoutes.dishes, dishRouter);
-app.use(appRoutes.chefs, chefRouter);
+app.use(appRoutes.restaurants.base, restaurantsRouter);
+app.use(appRoutes.dishes.base, dishRouter);
+app.use(appRoutes.chefs.base, chefRouter);
+app.use(appRoutes.user.base, userRouter);
+app.use(appRoutes.protected.base, protectedRouter);
 
 connectToDB()
   .then(() => {
