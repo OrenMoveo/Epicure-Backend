@@ -29,6 +29,8 @@ export const appRoutes = {
   user: {
     base: "/user",
     signUp: "/sign-up",
+    login: "/login",
+    removeUserById: "/remove/:id",
   },
 };
 
