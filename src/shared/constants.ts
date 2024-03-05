@@ -32,6 +32,9 @@ export const appRoutes = {
     login: "/login",
     removeUserById: "/remove/:id",
   },
+  protected: {
+    base: "/protected",
+  },
 };
 
 export const objectIdSchema = Joi.string()
