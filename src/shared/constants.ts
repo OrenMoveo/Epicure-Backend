@@ -20,6 +20,8 @@ export const appRoutes = {
     addChef: "/add",
     updateChefById: "/update/:id",
     removeChefById: "/remove/:id",
+    newChefs: "/new",
+    mostViewedChefs: "/most-viewed",
   },
   dishes: {
     base: "/dishes",

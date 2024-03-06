@@ -11,6 +11,8 @@ const chefRouter = express.Router();
 
 chefRouter.get(appRoutes.chefs.chefOfTheWeek, chefController.getChefOfTheWeek);
 chefRouter.get(appRoutes.chefs.allChefs, chefController.getAllChefs);
+chefRouter.get(appRoutes.chefs.newChefs, chefController.getNewChefs);
+chefRouter.get(appRoutes.chefs.mostViewedChefs, chefController.getMostViewedChefs);
 chefRouter.post(
   appRoutes.chefs.addChef,
   validate(createChefValidationSchema),

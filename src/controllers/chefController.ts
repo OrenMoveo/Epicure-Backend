@@ -14,6 +14,34 @@ export const getAllChefs = async (req: Request, res: Response) => {
   }
 };
 
+export const getNewChefs = async (req: Request, res: Response) => {
+  try {
+    const filterQuery = { newChef: true };
+    const newChefs = await chefService.getAll(filterQuery);
+    if (!newChefs) {
+      return res.status(404).json({ error: "Chefs not found" });
+    }
+    res.json(newChefs);
+  } catch (error: any) {
+    console.error(error.message);
+    res.status(500).send("Server Error");
+  }
+};
+
+export const getMostViewedChefs = async (req: Request, res: Response) => {
+  try {
+    const filterQuery = { mostViewed: true };
+    const mostViewedChefs = await chefService.getAll(filterQuery);
+    if (!mostViewedChefs) {
+      return res.status(404).json({ error: "Chefs not found" });
+    }
+    res.json(mostViewedChefs);
+  } catch (error: any) {
+    console.error(error.message);
+    res.status(500).send("Server Error");
+  }
+};
+
 export const getChefOfTheWeek = async (req: Request, res: Response) => {
   try {
     const chefOfTheWeek = await chefService.getChefOfTheWeek();
