@@ -1,7 +1,6 @@
 import Dish, { IDish } from "../models/dish";
 import Restaurant from "../models/restaurant";
 import { BaseService } from "./baseService";
-import { updateDishById, removeDishById } from "../controllers/dishController";
 import { PopulateOptions } from "mongoose";
 
 class DishService extends BaseService<IDish> {
@@ -13,9 +12,8 @@ class DishService extends BaseService<IDish> {
     const populateOptions: PopulateOptions[] = [
       { path: "restaurant", model: Restaurant, select: "name" },
     ];
-    const allDishes = await this.getAll(populateOptions);
-    const signatureDishes = allDishes.filter((dish) => dish.signatureDish);
-    return signatureDishes;
+    const filterQuery = { signatureDish: true };
+    return await this.getAll(filterQuery, populateOptions);
   }
 
   async addDish(data: Partial<IDish>): Promise<IDish> {

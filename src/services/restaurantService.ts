@@ -14,16 +14,6 @@ class RestaurantService extends BaseService<IRestaurant> {
     return await this.getAll(populateOptions);
   }
 
-  async getPopularRestaurants(): Promise<IRestaurant[]> {
-    const populateOptions = [{ path: "chef", select: "name", model: Chef }];
-    const allRestaurants = await this.getAll(populateOptions);
-    const popularRestaurants = allRestaurants.filter(
-      (restaurant) => restaurant.isPopular
-    );
-
-    return popularRestaurants;
-  }
-
   async getRestaurantById(id: string): Promise<IRestaurant | null> {
     const populatedOptions = [
       {

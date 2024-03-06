@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import restaurantService from "../services/restaurantService";
 import { DateTime } from "luxon";
+import Chef from "../models/chef";
 
 export const getAllRestaurants = async (req: Request, res: Response) => {
   try {
@@ -17,7 +18,12 @@ export const getAllRestaurants = async (req: Request, res: Response) => {
 
 export const getPopularRestaurants = async (req: Request, res: Response) => {
   try {
-    const popularRestaurants = await restaurantService.getPopularRestaurants();
+    const populateOptions = [{ path: "chef", select: "name", model: Chef }];
+    const filterQuery = { isPopular: true };
+    const popularRestaurants = await restaurantService.getAll(
+      filterQuery,
+      populateOptions
+    );
     if (!popularRestaurants) {
       return res.status(404).json({ error: "Popular Restaurants not found" });
     }
