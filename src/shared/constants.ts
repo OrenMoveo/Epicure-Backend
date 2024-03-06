@@ -10,6 +10,8 @@ export const appRoutes = {
     addRestaurant: "/add",
     updateRestaurantById: "/update/:id",
     removeRestaurantById: "/remove/:id",
+    newRestaurants: "/new",
+    openNowRestaurants: "/open-now",
   },
   chefs: {
     base: "/chefs",

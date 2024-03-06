@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import restaurantService from "../services/restaurantService";
+import { DateTime } from "luxon";
 
 export const getAllRestaurants = async (req: Request, res: Response) => {
   try {
@@ -21,6 +22,43 @@ export const getPopularRestaurants = async (req: Request, res: Response) => {
       return res.status(404).json({ error: "Popular Restaurants not found" });
     }
     res.json(popularRestaurants);
+  } catch (error: any) {
+    console.error(error.message);
+    res.status(500).send("Server Error");
+  }
+};
+
+export const getNewRestaurants = async (req: Request, res: Response) => {
+  try {
+    const newRestaurants = await restaurantService.getAll({
+      newRestaurant: true,
+    });
+    if (!newRestaurants) {
+      return res.status(404).json({ error: "New Restaurants not found" });
+    }
+    res.json(newRestaurants);
+  } catch (error: any) {
+    console.error(error.message);
+    res.status(500).send("Server Error");
+  }
+};
+
+export const getOpenNowRestaurants = async (req: Request, res: Response) => {
+  try {
+    const currentTime = DateTime.local().setZone("Asia/Jerusalem");
+    const filterQuery = {
+      $and: [
+        { "openingHours.openTime": { $lte: currentTime.toFormat("HH:mm") } },
+        { "openingHours.closeTime": { $gte: currentTime.toFormat("HH:mm") } },
+      ],
+    };
+
+    const openNowRestaurants = await restaurantService.getAll(filterQuery);
+
+    if (!openNowRestaurants) {
+      return res.status(404).json({ error: "Open Now Restaurants not found" });
+    }
+    res.json(openNowRestaurants);
   } catch (error: any) {
     console.error(error.message);
     res.status(500).send("Server Error");

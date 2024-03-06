@@ -2,6 +2,7 @@ import Dish, { IDish } from "../models/dish";
 import Restaurant from "../models/restaurant";
 import { BaseService } from "./baseService";
 import { updateDishById, removeDishById } from "../controllers/dishController";
+import { PopulateOptions } from "mongoose";
 
 class DishService extends BaseService<IDish> {
   constructor() {
@@ -9,7 +10,7 @@ class DishService extends BaseService<IDish> {
   }
 
   async getSignatureDishes(): Promise<IDish[]> {
-    const populateOptions = [
+    const populateOptions: PopulateOptions[] = [
       { path: "restaurant", model: Restaurant, select: "name" },
     ];
     const allDishes = await this.getAll(populateOptions);

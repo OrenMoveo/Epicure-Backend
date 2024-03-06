@@ -5,7 +5,6 @@ import cors from "cors";
 import { connectToDB } from "./db";
 import restaurantsRouter from "./routes/restaurantRoutes";
 import { appRoutes } from "./shared/constants";
-import homePageRouter from "./routes/dishRoutes";
 import dishRouter from "./routes/dishRoutes";
 import chefRouter from "./routes/chefRoutes";
 import userRouter from "./routes/userRoutes";
@@ -34,5 +33,6 @@ connectToDB()
   .catch((error) => {
     console.error("Failed to connect to the database", error);
   });
+
 
 export default app;

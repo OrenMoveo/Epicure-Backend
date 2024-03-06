@@ -25,6 +25,15 @@ restaurantRouter.post(
   restaurantController.addRestaurant
 );
 
+restaurantRouter.get(
+  appRoutes.restaurants.newRestaurants,
+  restaurantController.getNewRestaurants
+);
+restaurantRouter.get(
+  appRoutes.restaurants.openNowRestaurants,
+  restaurantController.getOpenNowRestaurants
+);
+
 restaurantRouter.put(
   appRoutes.restaurants.updateRestaurantById,
   validate(updateRestaurantValidationSchema),
