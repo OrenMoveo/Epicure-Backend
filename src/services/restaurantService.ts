@@ -9,11 +9,6 @@ class RestaurantService extends BaseService<IRestaurant> {
     super(Restaurant);
   }
 
-  async getAllRestaurants(): Promise<IRestaurant[]> {
-    const populateOptions = [{ path: "chef", select: "name", model: Chef }];
-    return await this.getAll(populateOptions);
-  }
-
   async getRestaurantById(id: string): Promise<IRestaurant | null> {
     const populatedOptions = [
       {

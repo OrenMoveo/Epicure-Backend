@@ -5,7 +5,7 @@ import Chef from "../models/chef";
 
 export const getAllRestaurants = async (req: Request, res: Response) => {
   try {
-    const restaurants = await restaurantService.getAllRestaurants();
+    const restaurants = await restaurantService.getAll();
     if (!restaurants) {
       return res.status(404).json({ error: "Restaurants not found" });
     }
