@@ -6,7 +6,7 @@ const MAX_INGREDIENT_LENGTH = 16;
 const MAX_INGREDIENTS = 8;
 
 const descriptionLengthSchema = Joi.array().custom((values, helpers) => {
-  if (values.length <= 8) {
+  if (values.length <= MAX_INGREDIENTS) {
     return values;
   }
   return helpers.message({
