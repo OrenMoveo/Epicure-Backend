@@ -4,14 +4,14 @@ export const appRoutes = {
   base: "/",
   restaurants: {
     base: "/restaurants",
-    allRestaurants: "/",
+    allRestaurants: "/:page",
     restaurantById: "/:id",
-    popularRestaurants: "/popular-restaurants-data",
+    popularRestaurants: "/popular-restaurants-data/:page",
     addRestaurant: "/add",
     updateRestaurantById: "/update/:id",
     removeRestaurantById: "/remove/:id",
-    newRestaurants: "/new",
-    openNowRestaurants: "/open-now",
+    openNowRestaurants: "/open-now/:page",
+    newRestaurants: "/new/:page",
   },
   chefs: {
     base: "/chefs",

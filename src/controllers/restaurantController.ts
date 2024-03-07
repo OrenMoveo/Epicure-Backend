@@ -5,7 +5,8 @@ import Chef from "../models/chef";
 
 export const getAllRestaurants = async (req: Request, res: Response) => {
   try {
-    const restaurants = await restaurantService.getAll();
+    const page = parseInt(req.params.page);
+    const restaurants = await restaurantService.getAllPagination({}, page);
     if (!restaurants) {
       return res.status(404).json({ error: "Restaurants not found" });
     }
@@ -19,9 +20,12 @@ export const getAllRestaurants = async (req: Request, res: Response) => {
 export const getPopularRestaurants = async (req: Request, res: Response) => {
   try {
     const populateOptions = [{ path: "chef", select: "name", model: Chef }];
+    const page = parseInt(req.params.page);
+
     const filterQuery = { isPopular: true };
-    const popularRestaurants = await restaurantService.getAll(
+    const popularRestaurants = await restaurantService.getAllPagination(
       filterQuery,
+      page,
       populateOptions
     );
     if (!popularRestaurants) {
@@ -36,9 +40,13 @@ export const getPopularRestaurants = async (req: Request, res: Response) => {
 
 export const getNewRestaurants = async (req: Request, res: Response) => {
   try {
-    const newRestaurants = await restaurantService.getAll({
-      newRestaurant: true,
-    });
+    const page = req.params.page;
+    const newRestaurants = await restaurantService.getAllPagination(
+      {
+        newRestaurant: true,
+      },
+      parseInt(page)
+    );
     if (!newRestaurants) {
       return res.status(404).json({ error: "New Restaurants not found" });
     }
@@ -51,6 +59,7 @@ export const getNewRestaurants = async (req: Request, res: Response) => {
 
 export const getOpenNowRestaurants = async (req: Request, res: Response) => {
   try {
+    const page = parseInt(req.params.page);
     const currentTime = DateTime.local().setZone("Asia/Jerusalem");
     const filterQuery = {
       $and: [
@@ -59,7 +68,10 @@ export const getOpenNowRestaurants = async (req: Request, res: Response) => {
       ],
     };
 
-    const openNowRestaurants = await restaurantService.getAll(filterQuery);
+    const openNowRestaurants = await restaurantService.getAllPagination(
+      filterQuery,
+      page
+    );
 
     if (!openNowRestaurants) {
       return res.status(404).json({ error: "Open Now Restaurants not found" });

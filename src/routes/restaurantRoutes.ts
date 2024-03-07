@@ -9,29 +9,10 @@ import {
 
 const restaurantRouter = express.Router();
 
-restaurantRouter.get(
-  appRoutes.restaurants.popularRestaurants,
-  restaurantController.getPopularRestaurants
-);
-
-restaurantRouter.get(
-  appRoutes.restaurants.allRestaurants,
-  restaurantController.getAllRestaurants
-);
-
 restaurantRouter.post(
   appRoutes.restaurants.addRestaurant,
   validate(createRestaurantValidationSchema),
   restaurantController.addRestaurant
-);
-
-restaurantRouter.get(
-  appRoutes.restaurants.newRestaurants,
-  restaurantController.getNewRestaurants
-);
-restaurantRouter.get(
-  appRoutes.restaurants.openNowRestaurants,
-  restaurantController.getOpenNowRestaurants
 );
 
 restaurantRouter.put(
@@ -43,6 +24,26 @@ restaurantRouter.put(
 restaurantRouter.delete(
   appRoutes.restaurants.removeRestaurantById,
   restaurantController.removeRestaurantById
+);
+
+restaurantRouter.get(
+  appRoutes.restaurants.newRestaurants,
+  restaurantController.getNewRestaurants
+);
+
+restaurantRouter.get(
+  appRoutes.restaurants.openNowRestaurants,
+  restaurantController.getOpenNowRestaurants
+);
+
+restaurantRouter.get(
+  appRoutes.restaurants.popularRestaurants,
+  restaurantController.getPopularRestaurants
+);
+
+restaurantRouter.get(
+  appRoutes.restaurants.allRestaurants,
+  restaurantController.getAllRestaurants
 );
 
 restaurantRouter.get(

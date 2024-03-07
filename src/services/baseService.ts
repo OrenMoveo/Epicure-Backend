@@ -14,6 +14,20 @@ export class BaseService<T extends Document> {
     return query;
   }
 
+  async getAllPagination(
+    filterQuery = {},
+    page: number,
+    populateOptions?: PopulateOptions[]
+  ): Promise<T[]> {
+
+    const skip = (page - 1) * 10;
+    const query = this.model.find(filterQuery).skip(skip).limit(10);
+    if (populateOptions) {
+      query.populate(populateOptions);
+    }
+    return query;
+  }
+
   async getById(
     id: string,
     populateOptions?: PopulateOptions[]
