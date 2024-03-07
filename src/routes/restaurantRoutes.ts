@@ -1,22 +1,54 @@
 import express from "express";
-import { restaurantsRoutes } from "../shared/constants";
+import { appRoutes } from "../shared/constants";
 import * as restaurantController from "../controllers/restaurantController";
+import { validate } from "../validators/validate";
+import {
+  createRestaurantValidationSchema,
+  updateRestaurantValidationSchema,
+} from "../validators/restaurantValidationScheme";
 
 const restaurantRouter = express.Router();
 
+restaurantRouter.post(
+  appRoutes.restaurants.addRestaurant,
+  validate(createRestaurantValidationSchema),
+  restaurantController.addRestaurant
+);
+
+restaurantRouter.put(
+  appRoutes.restaurants.updateRestaurantById,
+  validate(updateRestaurantValidationSchema),
+  restaurantController.updateRestaurantById
+);
+
+restaurantRouter.delete(
+  appRoutes.restaurants.removeRestaurantById,
+  restaurantController.removeRestaurantById
+);
+
 restaurantRouter.get(
-  restaurantsRoutes.popularRestaurants,
+  appRoutes.restaurants.newRestaurants,
+  restaurantController.getNewRestaurants
+);
+
+restaurantRouter.get(
+  appRoutes.restaurants.openNowRestaurants,
+  restaurantController.getOpenNowRestaurants
+);
+
+restaurantRouter.get(
+  appRoutes.restaurants.popularRestaurants,
   restaurantController.getPopularRestaurants
 );
 
 restaurantRouter.get(
-  restaurantsRoutes.allRestaurants,
-  restaurantController.getAllRestaurants
+  appRoutes.restaurants.restaurantById,
+  restaurantController.getRestaurantById
 );
 
 restaurantRouter.get(
-  restaurantsRoutes.singleRestaurant,
-  restaurantController.getRestaurantById
+  appRoutes.restaurants.allRestaurants,
+  restaurantController.getAllRestaurants
 );
 
 export default restaurantRouter;
