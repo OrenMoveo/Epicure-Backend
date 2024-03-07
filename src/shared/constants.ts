@@ -15,13 +15,13 @@ export const appRoutes = {
   },
   chefs: {
     base: "/chefs",
-    allChefs: "/",
+    allChefs: "/:page",
     chefOfTheWeek: "/chef-of-the-week-data",
     addChef: "/add",
     updateChefById: "/update/:id",
     removeChefById: "/remove/:id",
-    newChefs: "/new",
-    mostViewedChefs: "/most-viewed",
+    newChefs: "/new/:page",
+    mostViewedChefs: "/most-viewed/:page",
   },
   dishes: {
     base: "/dishes",

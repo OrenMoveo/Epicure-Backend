@@ -3,7 +3,8 @@ import chefService from "../services/chefService";
 
 export const getAllChefs = async (req: Request, res: Response) => {
   try {
-    const chefs = await chefService.getAll();
+    const page = parseInt(req.params.page);
+    const chefs = await chefService.getAllPagination({}, page);
     if (!chefs) {
       return res.status(404).json({ error: "Chefs not found" });
     }
@@ -16,8 +17,9 @@ export const getAllChefs = async (req: Request, res: Response) => {
 
 export const getNewChefs = async (req: Request, res: Response) => {
   try {
+    const page = parseInt(req.params.page);
     const filterQuery = { newChef: true };
-    const newChefs = await chefService.getAll(filterQuery);
+    const newChefs = await chefService.getAllPagination(filterQuery, page);
     if (!newChefs) {
       return res.status(404).json({ error: "Chefs not found" });
     }
@@ -30,8 +32,12 @@ export const getNewChefs = async (req: Request, res: Response) => {
 
 export const getMostViewedChefs = async (req: Request, res: Response) => {
   try {
+    const page = parseInt(req.params.page);
     const filterQuery = { mostViewed: true };
-    const mostViewedChefs = await chefService.getAll(filterQuery);
+    const mostViewedChefs = await chefService.getAllPagination(
+      filterQuery,
+      page
+    );
     if (!mostViewedChefs) {
       return res.status(404).json({ error: "Chefs not found" });
     }
