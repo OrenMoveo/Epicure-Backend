@@ -42,13 +42,13 @@ restaurantRouter.get(
 );
 
 restaurantRouter.get(
-  appRoutes.restaurants.allRestaurants,
-  restaurantController.getAllRestaurants
+  appRoutes.restaurants.restaurantById,
+  restaurantController.getRestaurantById
 );
 
 restaurantRouter.get(
-  appRoutes.restaurants.restaurantById,
-  restaurantController.getRestaurantById
+  appRoutes.restaurants.allRestaurants,
+  restaurantController.getAllRestaurants
 );
 
 export default restaurantRouter;
