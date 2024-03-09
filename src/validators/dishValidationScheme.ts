@@ -23,6 +23,8 @@ const ingredientLengthSchema = Joi.string().custom((values, helpers) => {
   });
 }, "custom.ingredientLengthValidation");
 
+const validMealTypes = ["breakfast", "dinner", "lunch"];
+
 export const createDishValidationSchema = Joi.object<IDish>({
   name: Joi.string().required(),
   pictureUrl: Joi.string().required(),
@@ -30,7 +32,9 @@ export const createDishValidationSchema = Joi.object<IDish>({
   price: Joi.number().max(10000).required(),
   signatureDish: Joi.boolean().required(),
   foodIcon: Joi.string().required(),
-  mealType: Joi.string().required(),
+  mealType: Joi.array()
+    .items(Joi.string().valid(...validMealTypes))
+    .required(),
   restaurant: restaurantObjectIdSchema.required(),
 });
 
@@ -41,6 +45,8 @@ export const updateDishValidationSchema = Joi.object<IDish>({
   price: Joi.number().max(10000).optional(),
   signatureDish: Joi.boolean().optional(),
   foodIcon: Joi.string().optional(),
-  mealType: Joi.string().optional(),
+  mealType: Joi.array()
+    .items(Joi.string().valid(...validMealTypes))
+    .optional(),
   restaurant: restaurantObjectIdSchema.optional(),
 });

@@ -8,7 +8,7 @@ export interface IDish extends Document {
   price: number;
   signatureDish: boolean;
   foodIcon: string;
-  mealType: string;
+  mealType: string[];
   restaurant: IRestaurant;
 }
 
@@ -19,7 +19,7 @@ const DishSchema = new Schema<IDish>({
   price: { type: Number, required: true },
   signatureDish: { type: Boolean, required: true },
   foodIcon: { type: String, required: true },
-  mealType: { type: String, required: true },
+  mealType: { type: [String], required: true },
   restaurant: {
     type: Schema.Types.ObjectId,
     ref: "Restaurant",
