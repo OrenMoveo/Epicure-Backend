@@ -1,5 +1,6 @@
 import Dish, { IDish } from "../models/dish";
 import Restaurant from "../models/restaurant";
+import { populatedOptions } from "../shared/constants";
 import { BaseService } from "./baseService";
 import { PopulateOptions } from "mongoose";
 
@@ -9,11 +10,8 @@ class DishService extends BaseService<IDish> {
   }
 
   async getSignatureDishes(): Promise<IDish[]> {
-    const populateOptions: PopulateOptions[] = [
-      { path: "restaurant", model: Restaurant, select: "name" },
-    ];
     const filterQuery = { signatureDish: true };
-    return await this.getAll(filterQuery, populateOptions);
+    return await this.getAll(filterQuery, populatedOptions.dishes.withRestaurant);
   }
 
   async addDish(data: Partial<IDish>): Promise<IDish> {

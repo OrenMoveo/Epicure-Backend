@@ -1,4 +1,7 @@
 import Joi from "joi";
+import Chef from "../models/chef";
+import Dish from "../models/dish";
+import Restaurant from "../models/restaurant";
 
 export const appRoutes = {
   base: "/",
@@ -38,6 +41,40 @@ export const appRoutes = {
   },
   protected: {
     base: "/protected",
+  },
+  search: {
+    base: "/search",
+    all: "/",
+  },
+};
+
+export const populatedOptions = {
+  restaurants: {
+    withChef: [{ path: "chef", select: "name", model: Chef }],
+    byId: [
+      {
+        path: "restaurantDishes",
+        model: Dish,
+        populate: {
+          path: "restaurant",
+          model: Restaurant,
+          select: "name",
+        },
+      },
+      { path: "chef", model: Chef },
+    ],
+  },
+  chefs: {
+    withRestaurants: [
+      {
+        path: "restaurants",
+        model: Restaurant,
+        select: "name pictureUrl",
+      },
+    ],
+  },
+  dishes: {
+    withRestaurant: [{ path: "restaurant", model: Restaurant, select: "name" }],
   },
 };
 

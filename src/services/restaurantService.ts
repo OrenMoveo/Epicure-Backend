@@ -3,6 +3,7 @@ import Chef from "../models/chef";
 import Dish from "../models/dish";
 import { BaseService } from "./baseService";
 import dishService from "./dishService";
+import { populatedOptions } from "../shared/constants";
 
 class RestaurantService extends BaseService<IRestaurant> {
   constructor() {
@@ -10,20 +11,7 @@ class RestaurantService extends BaseService<IRestaurant> {
   }
 
   async getRestaurantById(id: string): Promise<IRestaurant | null> {
-    const populatedOptions = [
-      {
-        path: "restaurantDishes",
-        model: Dish,
-        populate: {
-          path: "restaurant",
-          model: Restaurant,
-          select: "name",
-        },
-      },
-      { path: "chef", model: Chef },
-    ];
-
-    return await this.getById(id, populatedOptions);
+    return await this.getById(id, populatedOptions.restaurants.byId);
   }
 
   async addRestaurant(

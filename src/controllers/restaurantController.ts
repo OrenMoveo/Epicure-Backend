@@ -2,11 +2,17 @@ import { Request, Response } from "express";
 import restaurantService from "../services/restaurantService";
 import { DateTime } from "luxon";
 import Chef from "../models/chef";
+import { populatedOptions } from "../shared/constants";
 
 export const getAllRestaurants = async (req: Request, res: Response) => {
   try {
     const page = parseInt(req.params.page);
-    const restaurants = await restaurantService.getAllPagination({}, page);
+    const restaurants = await restaurantService.getAllPagination(
+      {},
+      page,
+      populatedOptions.restaurants.withChef
+    );
+
     if (!restaurants) {
       return res.status(404).json({ error: "Restaurants not found" });
     }
@@ -19,14 +25,13 @@ export const getAllRestaurants = async (req: Request, res: Response) => {
 
 export const getPopularRestaurants = async (req: Request, res: Response) => {
   try {
-    const populateOptions = [{ path: "chef", select: "name", model: Chef }];
     const page = parseInt(req.params.page);
 
     const filterQuery = { isPopular: true };
     const popularRestaurants = await restaurantService.getAllPagination(
       filterQuery,
       page,
-      populateOptions
+      populatedOptions.restaurants.withChef
     );
     if (!popularRestaurants) {
       return res.status(404).json({ error: "Popular Restaurants not found" });
@@ -45,7 +50,8 @@ export const getNewRestaurants = async (req: Request, res: Response) => {
       {
         newRestaurant: true,
       },
-      parseInt(page)
+      parseInt(page),
+      populatedOptions.restaurants.withChef
     );
     if (!newRestaurants) {
       return res.status(404).json({ error: "New Restaurants not found" });
@@ -70,7 +76,8 @@ export const getOpenNowRestaurants = async (req: Request, res: Response) => {
 
     const openNowRestaurants = await restaurantService.getAllPagination(
       filterQuery,
-      page
+      page,
+      populatedOptions.restaurants.withChef
     );
 
     if (!openNowRestaurants) {

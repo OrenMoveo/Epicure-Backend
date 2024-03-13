@@ -1,9 +1,7 @@
 import Chef, { IChef } from "../models/chef";
-import Restaurant from "../models/restaurant";
 import { BaseService } from "./baseService";
-import { updateChefById, removeChefById } from "../controllers/chefController";
 import restaurantService from "./restaurantService";
-import { removeRestaurantById } from "../controllers/restaurantController";
+import { populatedOptions } from "../shared/constants";
 
 class ChefService extends BaseService<IChef> {
   constructor() {
@@ -15,13 +13,10 @@ class ChefService extends BaseService<IChef> {
   }
 
   async getChefOfTheWeek(): Promise<IChef | null> {
-    return await this.getOne({ chefOfTheWeek: true }, [
-      {
-        path: "restaurants",
-        model: Restaurant,
-        select: "name pictureUrl",
-      },
-    ]);
+    return await this.getOne(
+      { chefOfTheWeek: true },
+      populatedOptions.chefs.withRestaurants
+    );
   }
 
   async addChef(data: Partial<IChef>): Promise<IChef> {

@@ -9,6 +9,7 @@ import dishRouter from "./routes/dishRoutes";
 import chefRouter from "./routes/chefRoutes";
 import userRouter from "./routes/userRoutes";
 import protectedRouter from "./routes/protectedRoute";
+import searchRouter from "./routes/searchRoute";
 
 dotenv.config();
 
@@ -23,6 +24,7 @@ app.use(appRoutes.dishes.base, dishRouter);
 app.use(appRoutes.chefs.base, chefRouter);
 app.use(appRoutes.user.base, userRouter);
 app.use(appRoutes.protected.base, protectedRouter);
+app.use(appRoutes.search.base, searchRouter);
 
 connectToDB()
   .then(() => {
@@ -33,6 +35,5 @@ connectToDB()
   .catch((error) => {
     console.error("Failed to connect to the database", error);
   });
-
 
 export default app;

@@ -3,7 +3,6 @@ import userService from "../services/userService";
 import bcrypt from "bcrypt";
 import { IUser } from "../models/user";
 import jwt from "jsonwebtoken";
-import { env } from "process";
 
 const HASH_COST_FACTOR = 10;
 

@@ -19,9 +19,8 @@ export class BaseService<T extends Document> {
     page: number,
     populateOptions?: PopulateOptions[]
   ): Promise<T[]> {
-
-    const skip = (page - 1) * 10;
-    const query = this.model.find(filterQuery).skip(skip).limit(10);
+    const skip = (page - 1) * 5;
+    const query = this.model.find(filterQuery).skip(skip).limit(5);
     if (populateOptions) {
       query.populate(populateOptions);
     }
